@@ -2,21 +2,18 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import tailwindcss from '@tailwindcss/vite';
-import starlightCatppuccin from '@catppuccin/starlight';
 import starlightImageZoom from 'starlight-image-zoom';
 
-// https://astro.build/config
 export default defineConfig({
 	base: "/site",
 	integrations: [
 		starlight({
 			plugins:  [
-                starlightCatppuccin({
-          			dark: { flavor: "macchiato", accent: "sky" },
-          			light: { flavor: "latte", accent: "sky" },
-        		}),
 				starlightImageZoom(),
       		],
+			components: {
+				ThemeSelect: './src/components/ThemeSelect.astro',
+			},
 			title: 'Speleo Club Orobico',
 			logo: {
     			src: './src/assets/logo.svg',
@@ -24,7 +21,7 @@ export default defineConfig({
 			locales: {
 				root: {
 					label: 'Italiano',
-					lang: 'it', // lang is required for root locales
+					lang: 'it',
 				},
 				'en': {
 					label: 'English',
