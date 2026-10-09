@@ -4,8 +4,8 @@ Speleo Club Orobico website: Astro 7 + Starlight docs site, deployed to GitHub P
 
 ## Commands
 - Package manager is **pnpm** (pinned via `packageManager` in `package.json`). Do not use npm/yarn or commit other lockfiles.
-- Verify changes with `pnpm build` — there are no tests, linter, or typecheck. `build` also surfaces config/integration errors that `dev` hides.
-- `pnpm dev` (Astro 7) starts a **background** server and returns immediately. Use `pnpm astro dev status | logs | stop`; always `stop` when done. If it "exited before becoming ready", run `pnpm build` to see the real error.
+- Verify changes with `pnpm check && pnpm build` (same as CI; no tests or linter). `build` also surfaces config/integration errors that `dev` hides.
+- In non-interactive shells (agents), Astro 7's `pnpm dev` detaches into a background server and returns immediately (interactively it's opt-in via `--background`). Use `pnpm astro dev status | logs | stop`; always `stop` when done. If it "exited before becoming ready", run `pnpm build` to see the real error.
 - Site is served under base `/site` → local URL is `http://localhost:4321/site/`, live URL is `https://speleocluborobico.github.io/site/`. `site` in `astro.config.mjs` is the domain only (`base` adds `/site`); it drives the sitemap and canonical URLs.
 
 ## pnpm config (`pnpm-workspace.yaml`)
@@ -22,7 +22,7 @@ Speleo Club Orobico website: Astro 7 + Starlight docs site, deployed to GitHub P
 - Many images are hot-linked from `https://www.speleocluborobico.org/site/images/...`, not stored in the repo.
 
 ## Customizations
-- `src/components/ThemeSelect.astro` overrides Starlight's theme picker to default to **dark**.
+- `src/components/ThemeProvider.astro` + `ThemeSelect.astro` are copies of Starlight's components overriding the default theme to **dark** (stored values: `dark` / `light` / `auto`). Keep them in sync with upstream on Starlight upgrades.
 - Styling: Tailwind v4 via `@tailwindcss/vite` + `@astrojs/starlight-tailwind`; theme tokens (accent/gray palette, fonts) live in `src/styles/global.css`.
 - `starlight-image-zoom` must stay ≥ 0.16 (earlier versions break on Astro 7's default Sätteri Markdown processor).
 
@@ -31,4 +31,5 @@ Speleo Club Orobico website: Astro 7 + Starlight docs site, deployed to GitHub P
 - The `grotte` collection (`src/grotte`, `Layout.astro`, `code`/`comune` fields) is **planned, not stale**. Don't remove it or "fix" its paths; its targets and `src/assets/images` don't exist yet. Current cave pages live in `src/content/docs/grotte/`.
 
 ## Deploy
-- `.github/workflows/astro.yml` builds with `withastro/action` (Node 24, pnpm 12.10.1) on push to `main`. Keep its `package-manager` in sync with `packageManager` in `package.json`.
+- `.github/workflows/astro.yml` runs `pnpm run check && pnpm run build` via `withastro/action` (Node 24) on PRs and pushes to `main`; only pushes deploy. The pnpm version comes from `packageManager` in `package.json` — don't add a `package-manager` input to the action.
+- Dependabot (`.github/dependabot.yml`) opens weekly PRs for npm deps (minor/patch grouped) and GitHub Actions.
