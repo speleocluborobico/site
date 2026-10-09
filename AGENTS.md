@@ -6,7 +6,7 @@ Speleo Club Orobico website: Astro 7 + Starlight docs site, deployed to GitHub P
 - Package manager is **pnpm** (pinned via `packageManager` in `package.json`). Do not use npm/yarn or commit other lockfiles.
 - Verify changes with `pnpm build` — there are no tests, linter, or typecheck. `build` also surfaces config/integration errors that `dev` hides.
 - `pnpm dev` (Astro 7) starts a **background** server and returns immediately. Use `pnpm astro dev status | logs | stop`; always `stop` when done. If it "exited before becoming ready", run `pnpm build` to see the real error.
-- Site is served under base `/site` → local URL is `http://localhost:4321/site/`.
+- Site is served under base `/site` → local URL is `http://localhost:4321/site/`, live URL is `https://speleocluborobico.github.io/site/`. `site` in `astro.config.mjs` is the domain only (`base` adds `/site`); it drives the sitemap and canonical URLs.
 
 ## pnpm config (`pnpm-workspace.yaml`)
 - pnpm 12 fails install on unapproved dependency build scripts. Approve new ones under `allowBuilds` (currently `esbuild`, `sharp`) — not `onlyBuiltDependencies` (removed).

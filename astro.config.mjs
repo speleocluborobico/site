@@ -5,6 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 import starlightImageZoom from 'starlight-image-zoom';
 
 export default defineConfig({
+	site: 'https://speleocluborobico.github.io',
 	base: "/site",
 	integrations: [
 		starlight({
