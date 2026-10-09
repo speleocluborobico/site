@@ -13,9 +13,12 @@ export default defineConfig({
 				starlightImageZoom(),
       		],
 			components: {
+				ThemeProvider: './src/components/ThemeProvider.astro',
 				ThemeSelect: './src/components/ThemeSelect.astro',
 			},
 			title: 'Speleo Club Orobico',
+			description: 'Sito dello Speleo Club Orobico (CAI Bergamo): storia, grotte, didattica e biblioteca.',
+			favicon: '/favicon.ico',
 			logo: {
     			src: './src/assets/logo.svg',
   			},
@@ -29,7 +32,7 @@ export default defineConfig({
 					lang: 'en',
 				},
 			},
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/speleocluborobico/site' }],
 			customCss: ['./src/styles/global.css'],
 		}),
 	],

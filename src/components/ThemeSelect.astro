@@ -38,7 +38,7 @@ import Select from '@astrojs/starlight/components/Select.astro';
 	/** Store the user’s preference in `localStorage`. */
 	function storeTheme(theme: Theme): void {
 		if (typeof localStorage !== 'undefined') {
-			localStorage.setItem(storageKey, theme === 'light' || theme === 'dark' ? theme : '');
+			localStorage.setItem(storageKey, theme);
 		}
 	}
 
